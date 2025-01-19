@@ -72,6 +72,28 @@ app.put('/api/product/:id', async(req,res) =>{
     }
 })
 
+
+app.delete('/api/product/:id', async (req,res) => {
+    try{
+
+        const {id} = req.params;
+        const product = await Product.findByIdAndDelete(id);
+
+        if(!product){
+
+           return res.status(404).json({message:"product not found"});
+
+        }
+
+        res.status(200).json({message:"Product deleted successfully"});
+
+
+    }catch(error){
+        res.status(500).json({message:error.message});
+    }
+});
+
+
 mongoose.connect("mongodb+srv://priyanjithranathunga:nXx9tCMkM5qQbxHY@crudapi.c3dgq.mongodb.net/Node-API?retryWrites=true&w=majority&appName=CRUDAPI").then(() => {
 
    
